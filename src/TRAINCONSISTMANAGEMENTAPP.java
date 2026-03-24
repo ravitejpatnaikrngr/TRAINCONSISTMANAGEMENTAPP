@@ -1,21 +1,20 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 public class TRAINCONSISTMANAGEMENTAPP {
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
-        Set<String> trainFormation = new LinkedHashSet<>();
-        System.out.println("\nAttaching bogies...");
-        trainFormation.add("Engine");
-        trainFormation.add("Sleeper");
-        trainFormation.add("Cargo");
-        trainFormation.add("Guard");
-        System.out.println("Attempting to add duplicate bogie 'Sleeper'...");
-        trainFormation.add("Sleeper");
-        System.out.println("\nFinal Train Formation (Insertion Order Preserved):");
-        for (String bogie : trainFormation) {
-            System.out.println(bogie);
+        Map<String, Integer> bogieCapacityMap = new HashMap<>();
+        System.out.println("\nMapping bogies to their capacities...");
+        bogieCapacityMap.put("Sleeper", 72);
+        bogieCapacityMap.put("AC Chair", 54);
+        bogieCapacityMap.put("First Class", 24);
+        System.out.println("\nBogie Capacity Details:");
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            System.out.println(entry.getKey() + " → Capacity: " + entry.getValue());
         }
-        System.out.println("\nTotal Bogies: " + trainFormation.size());
-        System.out.println("\nTrain formation is unique and ordered.");
+        System.out.println("\nChecking capacity of Sleeper bogie...");
+        int sleeperCapacity = bogieCapacityMap.get("Sleeper");
+        System.out.println("Sleeper Capacity: " + sleeperCapacity);
+        System.out.println("\nTrain system ready for capacity-based operations.");
     }
 }
