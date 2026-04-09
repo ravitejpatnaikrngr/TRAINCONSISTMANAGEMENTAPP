@@ -1,44 +1,53 @@
 import java.util.*;
 
-class InvalidCapacityException extends Exception {
-    public InvalidCapacityException(String message) {
+class CargoSafetyException extends RuntimeException {
+    public CargoSafetyException(String message) {
         super(message);
     }
 }
 
-class Bogie {
+class GoodsBogie {
     String type;
-    int capacity;
+    String cargo;
 
-    public Bogie(String type, int capacity) throws InvalidCapacityException {
-        if (capacity <= 0) {
-            throw new InvalidCapacityException("Capacity must be greater than zero");
-        }
+    public GoodsBogie(String type) {
         this.type = type;
-        this.capacity = capacity;
+    }
+
+    public void assignCargo(String cargo) {
+        try {
+            if (type.equals("Rectangular") && cargo.equals("Petroleum")) {
+                throw new CargoSafetyException("Unsafe cargo assignment");
+            }
+            this.cargo = cargo;
+            System.out.println(type + " bogie assigned cargo: " + cargo);
+        } catch (CargoSafetyException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println("Assignment attempt completed");
+        }
     }
 
     @Override
     public String toString() {
-        return "Bogie Type: " + type + ", Capacity: " + capacity;
+        return "Type: " + type + ", Cargo: " + cargo;
     }
 }
 
 public class TRAINCONSISTMANAGEMENTAPP {
     public static void main(String[] args) {
 
-        List<Bogie> bogies = new ArrayList<>();
+        List<GoodsBogie> bogies = new ArrayList<>();
 
-        try {
-            bogies.add(new Bogie("Sleeper", 72));
-            bogies.add(new Bogie("AC Chair", 60));
-            bogies.add(new Bogie("First Class", -10));
-            bogies.add(new Bogie("Sleeper", 80));
-        } catch (InvalidCapacityException e) {
-            System.out.println(e.getMessage());
-        }
+        bogies.add(new GoodsBogie("Cylindrical"));
+        bogies.add(new GoodsBogie("Rectangular"));
+        bogies.add(new GoodsBogie("Open"));
 
-        for (Bogie b : bogies) {
+        bogies.get(0).assignCargo("Petroleum");
+        bogies.get(1).assignCargo("Petroleum");
+        bogies.get(2).assignCargo("Coal");
+
+        for (GoodsBogie b : bogies) {
             System.out.println(b);
         }
     }
