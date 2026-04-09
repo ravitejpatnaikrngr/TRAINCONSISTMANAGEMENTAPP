@@ -1,20 +1,49 @@
-import java.util.HashMap;
-import java.util.Map;
-public class TRAINCONSISTMANAGEMENTAPP {
+import java.util.*;
+
+// Bogie class
+class TRAINCONSISTMANAGEMENTAPP {
+    private String name;
+    private int capacity;
+
+    // Constructor
+    public Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    // Display method
+    public void display() {
+        System.out.println(name + " Bogie - Capacity: " + capacity);
+    }
+}
+
+public class TrainConsistApp {
     public static void main(String[] args) {
-        System.out.println("=== Train Consist Management App ===");
-        Map<String, Integer> bogieCapacityMap = new HashMap<>();
-        System.out.println("\nMapping bogies to their capacities...");
-        bogieCapacityMap.put("Sleeper", 72);
-        bogieCapacityMap.put("AC Chair", 54);
-        bogieCapacityMap.put("First Class", 24);
-        System.out.println("\nBogie Capacity Details:");
-        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
-            System.out.println(entry.getKey() + " → Capacity: " + entry.getValue());
+
+        // Create list of bogies
+        List<Bogie> bogieList = new ArrayList<>();
+
+        // Add passenger bogies
+        bogieList.add(new Bogie("Sleeper", 72));
+        bogieList.add(new Bogie("AC Chair", 56));
+        bogieList.add(new Bogie("First Class", 24));
+
+        // Sort bogies by capacity using Comparator
+        bogieList.sort(Comparator.comparingInt(Bogie::getCapacity));
+
+        // Display sorted bogies
+        System.out.println("Bogies Sorted by Capacity (Ascending):");
+        for (Bogie b : bogieList) {
+            b.display();
         }
-        System.out.println("\nChecking capacity of Sleeper bogie...");
-        int sleeperCapacity = bogieCapacityMap.get("Sleeper");
-        System.out.println("Sleeper Capacity: " + sleeperCapacity);
-        System.out.println("\nTrain system ready for capacity-based operations.");
     }
 }
