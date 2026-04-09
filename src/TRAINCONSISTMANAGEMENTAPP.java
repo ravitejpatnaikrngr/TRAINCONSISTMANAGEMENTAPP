@@ -1,7 +1,7 @@
 import java.util.*;
 
 // Bogie class
-class TRAINCONSISTMANAGEMENTAPP {
+class Bogie {
     private String name;
     private int capacity;
 
@@ -26,7 +26,7 @@ class TRAINCONSISTMANAGEMENTAPP {
     }
 }
 
-public class TrainConsistApp {
+public class TRAINCONSISTMANAGEMENTAPP {
     public static void main(String[] args) {
 
         // Create list of bogies
