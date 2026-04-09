@@ -1,20 +1,47 @@
 import java.util.*;
 
 public class TRAINCONSISTMANAGEMENTAPP {
+
+    public static boolean binarySearch(String[] bogieIds, String key) {
+        int low = 0;
+        int high = bogieIds.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int result = key.compareTo(bogieIds[mid]);
+
+            if (result == 0) return true;
+            else if (result < 0) high = mid - 1;
+            else low = mid + 1;
+        }
+        return false;
+    }
+
+    public static boolean searchBogie(String[] bogieIds, String key) {
+        if (bogieIds == null || bogieIds.length == 0) return false;
+        Arrays.sort(bogieIds);
+        return binarySearch(bogieIds, key);
+    }
+
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-        String[] bogieIds = {"BG101","BG205","BG309","BG412","BG550"};
-        String searchKey = "BG309";
+        int n = sc.nextInt();
+        sc.nextLine();
 
-        boolean found = false;
+        String[] bogieIds = new String[n];
 
-        for (String id : bogieIds) {
-            if (id.equals(searchKey)) {
-                found = true;
-                break;
-            }
+        for (int i = 0; i < n; i++) {
+            bogieIds[i] = sc.nextLine();
         }
 
-        System.out.println(found);
+        String key = sc.nextLine();
+
+        boolean found = searchBogie(bogieIds, key);
+
+        if (found) System.out.println("FOUND");
+        else System.out.println("NOT FOUND");
+
+        sc.close();
     }
 }
