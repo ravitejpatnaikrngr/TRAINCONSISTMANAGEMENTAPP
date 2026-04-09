@@ -12,7 +12,7 @@ class Bogie {
 
     @Override
     public String toString() {
-        return "Capacity: " + capacity;
+        return "Bogie Type: " + type + ", Capacity: " + capacity;
     }
 }
 
@@ -27,14 +27,10 @@ public class TRAINCONSISTMANAGEMENTAPP {
         bogies.add(new Bogie("Sleeper", 80));
         bogies.add(new Bogie("AC Chair", 65));
 
-        Map<String, List<Bogie>> groupedBogies = bogies.stream()
-                .collect(Collectors.groupingBy(b -> b.type));
+        int totalCapacity = bogies.stream()
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
 
-        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
-            System.out.println(entry.getKey() + ":");
-            for (Bogie b : entry.getValue()) {
-                System.out.println("  " + b);
-            }
-        }
+        System.out.println("Total Seating Capacity: " + totalCapacity);
     }
 }
