@@ -18,7 +18,9 @@ public class TRAINCONSISTMANAGEMENTAPP {
     }
 
     public static boolean searchBogie(String[] bogieIds, String key) {
-        if (bogieIds == null || bogieIds.length == 0) return false;
+        if (bogieIds == null || bogieIds.length == 0) {
+            throw new IllegalStateException("No bogies available for search");
+        }
         Arrays.sort(bogieIds);
         return binarySearch(bogieIds, key);
     }
@@ -37,10 +39,13 @@ public class TRAINCONSISTMANAGEMENTAPP {
 
         String key = sc.nextLine();
 
-        boolean found = searchBogie(bogieIds, key);
-
-        if (found) System.out.println("FOUND");
-        else System.out.println("NOT FOUND");
+        try {
+            boolean found = searchBogie(bogieIds, key);
+            if (found) System.out.println("FOUND");
+            else System.out.println("NOT FOUND");
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+        }
 
         sc.close();
     }
