@@ -1,54 +1,24 @@
 import java.util.*;
 
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
-
-class GoodsBogie {
-    String type;
-    String cargo;
-
-    public GoodsBogie(String type) {
-        this.type = type;
-    }
-
-    public void assignCargo(String cargo) {
-        try {
-            if (type.equals("Rectangular") && cargo.equals("Petroleum")) {
-                throw new CargoSafetyException("Unsafe cargo assignment");
-            }
-            this.cargo = cargo;
-            System.out.println(type + " bogie assigned cargo: " + cargo);
-        } catch (CargoSafetyException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            System.out.println("Assignment attempt completed");
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Type: " + type + ", Cargo: " + cargo;
-    }
-}
-
 public class TRAINCONSISTMANAGEMENTAPP {
     public static void main(String[] args) {
 
-        List<GoodsBogie> bogies = new ArrayList<>();
+        int[] capacities = {72, 56, 24, 70, 60};
 
-        bogies.add(new GoodsBogie("Cylindrical"));
-        bogies.add(new GoodsBogie("Rectangular"));
-        bogies.add(new GoodsBogie("Open"));
+        int n = capacities.length;
 
-        bogies.get(0).assignCargo("Petroleum");
-        bogies.get(1).assignCargo("Petroleum");
-        bogies.get(2).assignCargo("Coal");
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (capacities[j] > capacities[j + 1]) {
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
+            }
+        }
 
-        for (GoodsBogie b : bogies) {
-            System.out.println(b);
+        for (int c : capacities) {
+            System.out.print(c + " ");
         }
     }
 }
